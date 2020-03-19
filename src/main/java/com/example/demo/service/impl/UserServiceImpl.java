@@ -1,10 +1,11 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.api.Api;
+import com.example.demo.entity.RepoSearchResponse;
 import com.example.demo.entity.Repos;
-import com.example.demo.entity.SearchResponse;
+import com.example.demo.entity.UserSearchResponse;
 import com.example.demo.entity.User;
-import com.example.demo.service.GithubService;
+import com.example.demo.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import rx.Observable;
@@ -17,7 +18,7 @@ import java.util.List;
 import static java.lang.String.format;
 
 @Service
-public class GithubServiceImpl implements GithubService {
+public class UserServiceImpl implements UserService {
 
 
 
@@ -32,7 +33,7 @@ public class GithubServiceImpl implements GithubService {
                 subscriber.onNext(user);
             }
             catch(Exception e){
-                e.printStackTrace();
+                subscriber.onError(e);
             }
 
         }).doOnError(System.out::println).subscribeOn(Schedulers.computation());
@@ -49,7 +50,7 @@ public class GithubServiceImpl implements GithubService {
                 }
             }
             catch (Exception e){
-                e.printStackTrace();
+                subscriber.onError(e);
             }
             subscriber.onNext(followersList);
 
@@ -64,24 +65,11 @@ public class GithubServiceImpl implements GithubService {
                 subscriber.onNext(repositories);
             }
             catch(Exception e){
-                e.printStackTrace();
+                subscriber.onError(e);
             }
         }).doOnError(System.out::println).subscribeOn(Schedulers.io());
     }
 
 
-    @Override
-    public Observable searchUser(String keyword) {
-        return Observable.create(subscriber -> {
-            String URL = format(Api.GET_SEARCH_USER_API,keyword);
-            try {
-                SearchResponse searchResponse = new RestTemplate().getForObject(URL, SearchResponse.class);
-                subscriber.onNext(searchResponse);
-            }
-            catch(Exception e){
-                e.printStackTrace();
-            }
 
-        }).subscribeOn(Schedulers.computation());
-    }
 }

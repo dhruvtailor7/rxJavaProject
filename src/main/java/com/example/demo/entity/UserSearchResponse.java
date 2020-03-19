@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class SearchResponse {
+public class UserSearchResponse {
     @JsonProperty("total_count")
     private Long totalCount;
     @JsonProperty("incomplete_results")

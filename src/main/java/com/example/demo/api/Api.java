@@ -6,5 +6,6 @@ public interface Api {
     public static final String GET_FOLLOWERS_API = GET_USER_API + "/followers";
     public static final String GET_REPO_API = GET_USER_API + "/repos";
     public static final String GET_SEARCH_USER_API = BASE_URL + "/search/users?q=%s";
+    public static final String GET_SEARCH_REPOS_API = BASE_URL + "/search/repositories?q=%s";
 
 }
