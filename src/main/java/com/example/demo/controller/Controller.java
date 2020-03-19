@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.Repository;
+import com.example.demo.entity.Repos;
 import com.example.demo.entity.User;
 import com.example.demo.helper.DeferredSubscriber;
 import com.example.demo.service.GithubService;
@@ -14,7 +14,7 @@ import org.springframework.web.context.request.async.DeferredResult;
 import java.util.List;
 
 @RestController
-@RequestMapping("/github/users")
+@RequestMapping("/github")
 public class Controller {
 
     @Autowired
@@ -35,9 +35,17 @@ public class Controller {
     }
 
     @GetMapping("/{login}/repos")
-    public DeferredResult<List<Repository>> getRepos(@PathVariable("login") String login){
-        DeferredResult<List<Repository>> result = new DeferredResult<List<Repository>>();
+    public DeferredResult<List<Repos>> getRepos(@PathVariable("login") String login){
+        DeferredResult<List<Repos>> result = new DeferredResult<List<Repos>>();
         githubService.getRepos(login).subscribe(new DeferredSubscriber(result));
+        return result;
+
+    }
+
+    @GetMapping("/search/{keyword}")
+    public DeferredResult<List<Repos>> searchUser(@PathVariable("keyword") String keyword){
+        DeferredResult<List<Repos>> result = new DeferredResult<List<Repos>>();
+        githubService.searchUser(keyword).subscribe(new DeferredSubscriber(result));
         return result;
 
     }

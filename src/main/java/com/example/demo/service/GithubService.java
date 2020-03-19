@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.Repository;
+import com.example.demo.entity.Repos;
 import com.example.demo.entity.User;
 import rx.Observable;
 
@@ -11,5 +11,7 @@ public interface GithubService {
 
     Observable<List<User>> getFollowers(String login);
 
-    Observable<Repository> getRepos(String login);
+    Observable<Repos> getRepos(String login);
+
+    Observable searchUser(String keyword);
 }

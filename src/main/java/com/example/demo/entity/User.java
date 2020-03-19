@@ -3,8 +3,10 @@ package com.example.demo.entity;
 
 import javax.annotation.Generated;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
 
     @JsonProperty("avatar_url")

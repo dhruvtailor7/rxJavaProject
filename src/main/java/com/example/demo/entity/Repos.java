@@ -5,7 +5,7 @@ import javax.annotation.Generated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Repository {
+public class Repos {
 
     @JsonProperty("clone_url")
     private String cloneUrl;
